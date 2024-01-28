@@ -14,11 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
 const common_1 = require("@nestjs/common");
+const PrismaService_1 = require("../../database/prisma/PrismaService");
 let ProductController = class ProductController {
-    constructor(application) {
+    constructor(application, prismaDatabase) {
         this.application = application;
+        this.prismaDatabase = prismaDatabase;
     }
     async createProduct() {
+        console.log(await this.prismaDatabase.cpUser.findMany());
         return this.application.createProduct({ "name": "HOLA", "price": 13 });
     }
 };
@@ -32,6 +35,6 @@ __decorate([
 exports.ProductController = ProductController = __decorate([
     (0, common_1.Controller)('/product'),
     __param(0, (0, common_1.Inject)('PRODUCT_APPLICATION')),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, PrismaService_1.PrismaService])
 ], ProductController);
 //# sourceMappingURL=ProductController.js.map
