@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const ProductController_1 = require("./http-server/controllers/ProductController");
 const CategoryApplicationService_1 = require("../core/application/services/CategoryApplicationService");
 const PrismaService_1 = require("./database/prisma/PrismaService");
+const ModelPrismaRepositoryAdapter_1 = require("./adapters/ModelPrismaRepositoryAdapter");
 const productApplicationFactory = {
     provide: 'PRODUCT_APPLICATION',
     useFactory: (productService) => {
@@ -24,7 +25,8 @@ exports.InfraestructureModule = InfraestructureModule = __decorate([
     (0, common_1.Module)({
         providers: [
             productApplicationFactory,
-            PrismaService_1.PrismaService
+            PrismaService_1.PrismaService,
+            ModelPrismaRepositoryAdapter_1.ModelPrismaRepositoryAdapter
         ],
         exports: [productApplicationFactory],
         controllers: [ProductController_1.ProductController]

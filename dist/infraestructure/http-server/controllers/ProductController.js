@@ -15,12 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
 const common_1 = require("@nestjs/common");
 const PrismaService_1 = require("../../database/prisma/PrismaService");
+const CpUser_1 = require("../../../core/domain/entities/CpUser");
+const ModelPrismaRepositoryAdapter_1 = require("../../adapters/ModelPrismaRepositoryAdapter");
 let ProductController = class ProductController {
-    constructor(application, prismaDatabase) {
+    constructor(application, prismaDatabase, repository) {
         this.application = application;
         this.prismaDatabase = prismaDatabase;
+        this.repository = repository;
     }
     async createProduct() {
+        const model = new CpUser_1.CpUser();
+        console.log(model.getModel());
+        console.log(await this.prismaDatabase[model.getModel()].findMany());
+        console.log(this.repository.getOne(1));
         console.log(await this.prismaDatabase.cpUser.findMany());
         return this.application.createProduct({ "name": "HOLA", "price": 13 });
     }
@@ -35,6 +42,7 @@ __decorate([
 exports.ProductController = ProductController = __decorate([
     (0, common_1.Controller)('/product'),
     __param(0, (0, common_1.Inject)('PRODUCT_APPLICATION')),
-    __metadata("design:paramtypes", [Object, PrismaService_1.PrismaService])
+    __metadata("design:paramtypes", [Object, PrismaService_1.PrismaService,
+        ModelPrismaRepositoryAdapter_1.ModelPrismaRepositoryAdapter])
 ], ProductController);
 //# sourceMappingURL=ProductController.js.map
