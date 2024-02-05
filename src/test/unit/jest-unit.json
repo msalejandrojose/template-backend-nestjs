@@ -4,7 +4,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "../../synthesis",
+    "rootDir": "../../",
     "testRegex": ".*\\.spec\\.ts$",
     "testEnvironment": "node",
     "transform": {

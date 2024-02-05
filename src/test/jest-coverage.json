@@ -1,0 +1,20 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": ".",
+  "projects": [
+    "<rootDir>/unit/jest-unit.json"
+  ],
+  "collectCoverageFrom": [
+    "**/*.(t|j)s",
+    "!**/*.module.ts"
+  ],
+  "coverageDirectory": "../../test-coverage",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "coveragePathIgnorePatterns": ["*main.ts"]
+}
