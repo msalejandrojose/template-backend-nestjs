@@ -7,6 +7,7 @@ import { ProductController } from './http-server/controllers/ProductController';
 import { CategoryApplicationService } from 'src/core/application/services/CategoryApplicationService';
 import { PrismaService } from './database/prisma/PrismaService';
 import { ModelPrismaRepositoryAdapter } from './adapters/ModelPrismaRepositoryAdapter';
+import { CpUser } from 'src/core/domain/entities/CpUser';
 
 const productApplicationFactory = {
     provide: 'PRODUCT_APPLICATION',
@@ -19,9 +20,12 @@ const productApplicationFactory = {
     providers:[
         productApplicationFactory,
         PrismaService,
-        ModelPrismaRepositoryAdapter
+        ModelPrismaRepositoryAdapter,
+        CpUser
     ],
-    exports:[productApplicationFactory],
+    exports:[
+        productApplicationFactory
+    ],
     controllers:[ProductController]
 })
 export class InfraestructureModule {}

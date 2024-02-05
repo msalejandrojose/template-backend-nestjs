@@ -6,15 +6,24 @@ import { Model } from "src/core/domain/entities/Model";
 
 export class ModelPrismaRepositoryAdapter implements IModelRepository{
 
-    constructor(private database:PrismaService,private model:CpUser) {}
+    constructor(
+        public database:PrismaService,
+        private model:Model
+        ) {}
 
-    getOne(objectId: string | number): Promise<false | Object> {
-        this.model = new CpUser();
-        console.log(this.model.getModel());
-        console.log(this.database[this.model.getModel()].findMany());
-        console.log("ASD");
+    async getOne(objectId: string | number): Promise<false | Object> {
+        console.log("PrismaService instance:", this.database);
+        console.log(await this.database.cpUser.findMany());
+        console.log(this.model.getColumnId());
         throw new Error("Method not implemented.");
     }
+
+    //let model = new CpUser();
+        //console.log(model.getModel());
+        //console.log(this.database.cpUser.findFirst());
+        //console.log(await this.database.cpUser.findMany());
+        //console.log("ASD");
+
     getOneValue(objectId: string | number, columnName: string): Promise<false | Object> {
         throw new Error("Method not implemented.");
     }

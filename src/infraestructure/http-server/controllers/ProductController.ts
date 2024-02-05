@@ -12,18 +12,16 @@ export class ProductController {
     constructor(
         @Inject('PRODUCT_APPLICATION') private application: ProductApplication,
         private prismaDatabase: PrismaService,
-        private repository: ModelPrismaRepositoryAdapter
+        private repository: ModelPrismaRepositoryAdapter,
+        private model:CpUser
     ) { }
 
     @Get()
     async createProduct() {
-        const model = new CpUser();
-        //console.log(model.getColumnId());
+        console.log(await this.prismaDatabase[this.model.getModel()].findFirst());
         //console.log(this.repository.getOne(1));
-        console.log(model.getModel());
-        console.log(await this.prismaDatabase[model.getModel()].findMany());
-        console.log(this.repository.getOne(1));
-        console.log(await this.prismaDatabase.cpUser.findMany());
         return this.application.createProduct({ "name": "HOLA", "price": 13 });
     }
+
+    //console.log(await this.prismaDatabase.cpUser.findMany());
 }
