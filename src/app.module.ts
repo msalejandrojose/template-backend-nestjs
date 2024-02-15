@@ -1,13 +1,18 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { InfrastructureModule } from './module/infrastructure/infrastructure.module';
 
-@Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env"',
-    }),
-  ],
-  controllers: [],
-  providers: [],
-})
-export class AppModule {}
+@Module({})
+export class AppModule {
+  static forRoot(): DynamicModule {
+    return {
+      module: AppModule,
+      imports: [
+        ConfigModule.forRoot({
+          isGlobal: true,
+        }),
+        InfrastructureModule.register(),
+      ],
+    };
+  }
+}

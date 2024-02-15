@@ -1,10 +1,15 @@
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 
-@Module({
-    imports: [],
-    exports: [],
-    providers: [],
-})
+@Module({})
 export class ApplicationModule{
-
+    static register(): DynamicModule {
+        return {
+            module: ApplicationModule,
+            imports: [],
+            providers: [
+            ],
+            controllers: [
+            ],
+        };
+    }
 }
