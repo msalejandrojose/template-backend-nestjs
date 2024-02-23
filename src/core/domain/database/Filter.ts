@@ -14,7 +14,6 @@ export class Filter {
     addUnEqualValue(column:string,value:string | number) {
         this.filter.push(new Condition(column,value,ConditionOperator.UNEQUAL));
     }
-
 }
 
 export enum FilterOperator {
