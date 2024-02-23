@@ -1,5 +1,8 @@
+import { BaseModel } from "../../model/BaseModel";
+
 export interface IRepository{
-    getOne(objectId:string | number): Promise<Object | false>;
+    getOne();
+    //getOne(table_name:string,objectId:string | number);
     //getOneValue(objectId:string | number,columnName:string): Promise<T | false>;
     //getOneByFilter(filter:Object,columnNames:string[] | null): Promise<T | false>;
     //getOneValueByFilter(filter:Object,columnName:string): Promise<T | false>;

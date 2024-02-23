@@ -8,9 +8,14 @@ datasource db {
 }
 
 model cp_user {
-  id   Int     @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String?
   last_name String?
   date      DateTime?
-  aux       Int?
+}
+
+model role {
+  id        String       @id
+  name      String?
+  surname   String?
 }
