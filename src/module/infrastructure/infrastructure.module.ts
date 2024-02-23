@@ -3,7 +3,6 @@ import { TestController } from "src/core/infrastructure/controller/test.controll
 import { DomainModule } from "../domain/domain.module";
 import { PrismaService } from "src/core/infrastructure/database/prisma/PrismaService";
 import { PRISMA_REPOSITORY, prismaDbRepository } from "./InfrastructureFactory";
-import { PRISMA_REPOSITORY_SERVICE } from "../domain/DomainFactory";
 import { PrismaRepository } from "src/core/infrastructure/adapter/database/PrismaRepository";
 import { Model } from "src/core/domain/model/Model";
 

@@ -15,6 +15,7 @@ export class PrismaRepository implements IRepository{
     }
 
     async getOne(){
+        console.log(this.model.getTableName());
         const asd = await this.prismaService[this.model.getTableName()].findFirst();
         return asd;
     }
