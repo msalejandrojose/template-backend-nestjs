@@ -6,6 +6,7 @@ import { IRepository } from 'src/core/domain/port/outbound/IRepository';
 import { SuperheroService } from '../superhero.service';
 import { Role, RoleDto } from 'src/core/domain/model/Role';
 import { Filter } from 'src/core/domain/database/Filter';
+import { Pokemon } from 'src/core/domain/model/Pokemon';
 
 @Controller('/test')
 export class TestController {
@@ -14,6 +15,9 @@ export class TestController {
     @Get()
      //@Param('id') id:any
     async getData() {
+
+        const pokemon = await Pokemon.getOne();
+        return pokemon;
 
         const filter = new Filter();
         filter.addEqualValue('column',12);

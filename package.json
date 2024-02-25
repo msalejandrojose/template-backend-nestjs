@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:generate": "cd src/core/infrastructure/database/prisma/ && prisma generate",
     "prisma:migration": "cd src/core/infrastructure/database/prisma/ && prisma migrate dev",
-    "prisma:pull": "cd src/core/infrastructure/database/prisma/ && prisma db pull",
+    "prisma:pull": "cd src/core/infrastructure/database/prisma/ && prisma db pull && prisma generate",
     "prisma:deploy": "cd src/core/infrastructure/database/prisma/ && prisma migrate deploy --preview-feature",
     "prisma:reset": "cd src/core/infrastructure/database/prisma/ && prisma db push --force-reset"
   },
