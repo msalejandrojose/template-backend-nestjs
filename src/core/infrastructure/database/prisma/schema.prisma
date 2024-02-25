@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cp_user {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  date      DateTime?
+  last_name String?
+}
+
+model role {
+  id      String  @id
+  name    String?
+  surname String?
+}
+
+model ability {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(79)
+  pokemon_ability pokemon_ability[]
+}
+
+model base_stat {
+  pokemon_id Int     @id
+  b_hp       Int?
+  b_atk      Int?
+  b_def      Int?
+  b_sp_atk   Int?
+  b_sp_def   Int?
+  b_speed    Int?
+  pokemon    pokemon @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "pokemon_id")
+}
+
+model move {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(79)
+  type_id      Int
+  power        Int?           @db.SmallInt
+  pp           Int?           @db.SmallInt
+  accuracy     Int?           @db.SmallInt
+  type         type           @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_move_1")
+  pokemon_move pokemon_move[]
+
+  @@index([type_id], map: "type_id")
+}
+
+model pokemon {
+  id                        Int                        @id @default(autoincrement())
+  name                      String                     @db.VarChar(79)
+  height                    Int?
+  weight                    Int?
+  base_experience           Int?
+  pokemon_type_id           Int?
+  base_stat                 base_stat?
+  type                      type?                      @relation(fields: [pokemon_type_id], references: [id], onUpdate: NoAction, map: "fk_pokemon_1")
+  pokemon_ability           pokemon_ability[]
+  pokemon_evolution_matchup pokemon_evolution_matchup?
+  pokemon_move              pokemon_move[]
+  pokemon_type              pokemon_type[]
+
+  @@index([pokemon_type_id], map: "fk_pokemon_1")
+}
+
+model pokemon_ability {
+  pokemon_id Int
+  ability_id Int
+  is_hidden  Boolean
+  slot       Int
+  pokemon    pokemon @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_ability_1")
+  ability    ability @relation(fields: [ability_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_ability_2")
+
+  @@id([pokemon_id, slot])
+  @@index([ability_id], map: "ability_id")
+  @@index([is_hidden], map: "ix_pokemon_abilities_is_hidden")
+}
+
+model pokemon_evolution {
+  id                        Int                       @id @default(autoincrement())
+  evolved_species_id        Int
+  evol_minimum_level        Int?
+  pokemon_evolution_matchup pokemon_evolution_matchup @relation(fields: [evolved_species_id], references: [pokemon_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_evolution_1")
+
+  @@index([evolved_species_id], map: "evolved_species_id")
+}
+
+model pokemon_evolution_matchup {
+  pokemon_id              Int                 @id @default(autoincrement())
+  evolves_from_species_id Int?
+  pokemon_habitat_id      Int?
+  gender_rate             Int
+  capture_rate            Int
+  base_happiness          Int
+  pokemon_evolution       pokemon_evolution[]
+  pokemon_habitat         pokemon_habitat?    @relation(fields: [pokemon_habitat_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_evolution_matchup_6")
+  pokemon                 pokemon             @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "poke_fk")
+
+  @@index([evolves_from_species_id], map: "evolves_from_species_id")
+  @@index([pokemon_habitat_id], map: "habitat_id")
+}
+
+model pokemon_habitat {
+  id                        Int                         @id
+  name                      String                      @db.VarChar(79)
+  descript                  String?                     @db.VarChar(400)
+  pokemon_evolution_matchup pokemon_evolution_matchup[]
+}
+
+model pokemon_move {
+  pokemon_id          Int
+  version_group_id    Int
+  move_id             Int
+  method_id           Int
+  level               Int
+  pokemon             pokemon             @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_moves_1")
+  move                move                @relation(fields: [move_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_moves_2")
+  version_group       version_group       @relation(fields: [version_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_moves_3")
+  pokemon_move_method pokemon_move_method @relation(fields: [method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_moves_4")
+
+  @@id([pokemon_id, version_group_id, move_id, method_id, level])
+  @@index([level], map: "ix_pokemon_moves_level")
+  @@index([move_id], map: "ix_pokemon_moves_move_id")
+  @@index([pokemon_id], map: "ix_pokemon_moves_pokemon_id")
+  @@index([method_id], map: "ix_pokemon_moves_pokemon_move_method_id")
+  @@index([version_group_id], map: "ix_pokemon_moves_version_group_id")
+}
+
+model pokemon_move_method {
+  id           Int            @id
+  name         String         @db.VarChar(79)
+  pokemon_move pokemon_move[]
+}
+
+model pokemon_type {
+  pokemon_id Int
+  type_id    Int
+  slot       Int
+  pokemon    pokemon @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon_types_1")
+
+  @@id([pokemon_id, slot])
+  @@index([type_id], map: "type_id")
+}
+
+model type {
+  id             Int            @id @default(autoincrement())
+  name           String         @db.VarChar(79)
+  damage_type_id Int?
+  move           move[]
+  pokemon        pokemon[]
+  type_efficacy  type_efficacy? @relation(fields: [damage_type_id], references: [damage_type_id], onDelete: NoAction, onUpdate: NoAction, map: "damage_type")
+
+  @@index([damage_type_id], map: "damage_type_idx")
+}
+
+model type_efficacy {
+  damage_type_id Int @unique
+  target_type_id Int
+  damage_factor  Int
+  type           type[]
+
+  @@id([damage_type_id, target_type_id])
+  @@index([target_type_id], map: "target_type_id")
+}
+
+model version_group {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique(map: "identifier") @db.VarChar(79)
+  order        Int?
+  pokemon_move pokemon_move[]
+}
