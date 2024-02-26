@@ -6,7 +6,7 @@ export class Pokemon extends Model<Pokemon>{
     }
 }
 
-export interface Pokemon{
+export interface PokemonDto{
     id: number,
     name: string,
     height: number,

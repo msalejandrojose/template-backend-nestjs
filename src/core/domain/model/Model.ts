@@ -1,6 +1,10 @@
 import { PrismaRepository } from "src/core/infrastructure/adapter/database/PrismaRepository";
 import { BaseModel } from "./BaseModel";
 import { CpUserDto } from "./CpUser";
+import { Field } from "../database/Field";
+import { Filter } from "../database/Filter";
+import { Order } from "../database/Order";
+import { Limit } from "../database/Limit";
 
 export class Model<T> extends BaseModel<T>{
     protected tableName: string;
@@ -27,7 +31,14 @@ export class Model<T> extends BaseModel<T>{
         return this.alias;
     }
 
-    static async getOne<T>():Promise<T>{
-        return await new this().repository.getOne() as T;
+    static async getOne<T>(objectId:string | number):Promise<T>{
+        if(typeof objectId == 'string'){
+            objectId = parseInt(objectId);
+        }
+        return await new this().repository.getOne(objectId)??false;
+    }
+
+    static async getRows(fields?: Field, filter?: Filter, order?: Order, limit?: Limit){
+        return await new this().repository.getRows(fields,filter,order,limit)??false;
     }
 }

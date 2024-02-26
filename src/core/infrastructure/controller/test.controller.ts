@@ -1,10 +1,5 @@
 import { Controller, Get, Inject, Param, ParseIntPipe } from '@nestjs/common';
-import { PrismaService } from '../database/prisma/PrismaService';
-import { CpUser, CpUserDto } from 'src/core/domain/model/CpUser';
-import { StaticModel } from 'src/core/domain/model/StaticModel';
-import { IRepository } from 'src/core/domain/port/outbound/IRepository';
-import { SuperheroService } from '../superhero.service';
-import { Role, RoleDto } from 'src/core/domain/model/Role';
+import { Field } from 'src/core/domain/database/Field';
 import { Filter } from 'src/core/domain/database/Filter';
 import { Pokemon } from 'src/core/domain/model/Pokemon';
 
@@ -13,21 +8,21 @@ export class TestController {
     constructor() { }
 
     @Get()
-     //@Param('id') id:any
-    async getData() {
+    async getTotal() {
 
-        const pokemon = await Pokemon.getOne();
-        return pokemon;
+        const fields = new Field();
+        fields.addField(['id','name']);
 
         const filter = new Filter();
-        filter.addEqualValue('column',12);
-        console.log(filter);
-        
-        const role123 = await Role.getOne<RoleDto>();
-        const user = await CpUser.getOne();
+        filter.addEqualValue('name','pikachu');
 
-        console.log(role123.id);
+        const pokemon = await Pokemon.getRows(fields,filter);
+        return pokemon;
+    }
 
-        return user;
+    @Get(':id')
+    async getData(@Param('id') id: number) {
+        const pokemon = await Pokemon.getOne(id);
+        return pokemon;
     }
 }
