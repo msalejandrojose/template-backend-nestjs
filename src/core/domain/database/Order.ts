@@ -1,11 +1,11 @@
 //TODO
 export class Order {
-    column: string;
-    direction: OrderDirection;
+    field: string;
+    order: OrderDirection;
 
-    constructor(column: string, direction: OrderDirection = OrderDirection.ASC) {
-        this.column = column;
-        this.direction = direction;
+    constructor(field: string, order: OrderDirection = OrderDirection.ASC) {
+        this.field = field;
+        this.order = order;
     }
 }
 

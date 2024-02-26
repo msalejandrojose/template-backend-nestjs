@@ -8,6 +8,7 @@ import { Model } from "src/core/domain/model/Model";
 
 @Module({})
 export class InfrastructureModule {
+    private prismaService: PrismaService;
     static register(): DynamicModule {
         return {
             module: InfrastructureModule,
@@ -24,7 +25,7 @@ export class InfrastructureModule {
                 TestController
             ],
             exports: [
-                PrismaRepository
+                PrismaRepository,
             ]
         };
     }

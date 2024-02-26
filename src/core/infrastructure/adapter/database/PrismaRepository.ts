@@ -5,6 +5,7 @@ import { PrismaService } from "../../database/prisma/PrismaService";
 import { PrismaClient } from "@prisma/client";
 import { BaseModel } from "src/core/domain/model/BaseModel";
 import { CpUserDto } from "src/core/domain/model/CpUser";
+import { InfrastructureModule } from "src/module/infrastructure/infrastructure.module";
 
 //@Injectable()
 export class PrismaRepository implements IRepository{

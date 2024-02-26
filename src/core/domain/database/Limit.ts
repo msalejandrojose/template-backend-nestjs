@@ -1,8 +1,8 @@
 //TODO
 export class Limit {
-    value: number;
+    limit: number;
 
-    constructor(value: number) {
-        this.value = value;
+    constructor(limit: number) {
+        this.limit = limit;
     }
 }

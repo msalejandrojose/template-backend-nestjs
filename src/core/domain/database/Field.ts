@@ -1,8 +1,16 @@
 //TODO
 export class Field {
-    columns: string[];
+    protected fields: string[];
 
-    constructor(columns: string[]) {
-        this.columns = columns;
+    constructor(fields: string[]) {
+        this.fields = fields;
+    }
+
+    addField(field:string){
+        this.fields.push(field);
+    }
+
+    getFields(){
+        return this.fields;
     }
 }
