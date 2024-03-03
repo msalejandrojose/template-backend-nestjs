@@ -1,7 +1,6 @@
 import { Query } from "src/core/infrastructure/adapter/database/dtos/Query";
 import { Model } from "./Model";
 import { Field } from "../database/Field";
-import { InnerJoin } from "../database/InnerJoin";
 
 export class Pokemon extends Model<Pokemon>{
     constructor(){
