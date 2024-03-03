@@ -1,11 +1,26 @@
-//TODO
 export class Order {
-    field: string;
-    order: OrderDirection;
+    protected orderBy: OrderItem[];
 
-    constructor(field: string, order: OrderDirection = OrderDirection.ASC) {
+    constructor() {
+        this.orderBy = [];
+    }
+
+    addOrder(field:string,order:OrderDirection){
+        this.orderBy.push(new OrderItem(field,order));
+    }
+
+    getOrder(){
+        return this.orderBy;
+    }
+}
+
+export class OrderItem{
+    field:string;
+    order:OrderDirection;
+
+    constructor(field:string,order:OrderDirection){
         this.field = field;
-        this.order = order;
+        this.order=order;
     }
 }
 

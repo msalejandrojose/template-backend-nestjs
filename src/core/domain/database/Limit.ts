@@ -1,8 +1,12 @@
 //TODO
 export class Limit {
-    limit: number;
+    protected limit: number;
 
     constructor(limit: number) {
         this.limit = limit;
+    }
+
+    getLimit(){
+        return this.limit;
     }
 }

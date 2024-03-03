@@ -1,10 +1,12 @@
 export class Filter {
     operator: FilterOperator;
     conditions: Condition[];
+    filters: Filter[];
 
     constructor(operator?: FilterOperator) {
         this.operator = operator ?? FilterOperator.AND;
         this.conditions = [];
+        this.filters = [];
     }
 
     addEqualValue(column: string, value: string | number) {
