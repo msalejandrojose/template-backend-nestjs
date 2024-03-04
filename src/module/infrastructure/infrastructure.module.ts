@@ -5,6 +5,7 @@ import { PrismaService } from "src/core/infrastructure/database/prisma/PrismaSer
 import { PRISMA_REPOSITORY, prismaDbRepository } from "./InfrastructureFactory";
 import { PrismaRepository } from "src/core/infrastructure/adapter/database/PrismaRepository";
 import { Model } from "src/core/domain/model/Model";
+import { PokemonListController } from "src/core/infrastructure/controller/cp/pokemon/pokemonList.controller";
 
 @Module({})
 export class InfrastructureModule {
@@ -22,7 +23,8 @@ export class InfrastructureModule {
                 Model,
             ],
             controllers: [
-                TestController
+                TestController,
+                PokemonListController
             ],
             exports: [
                 PrismaRepository,

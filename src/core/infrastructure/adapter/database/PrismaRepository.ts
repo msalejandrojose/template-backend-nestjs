@@ -24,21 +24,29 @@ export class PrismaRepository implements IRepository {
         return await this.getPrismaServiceTable().findUnique({ where: { [this.model.getPrimaryKey()]: objectId } });
     }
 
-    getOneValue(objectId: string | number, field: string, order?: Order) {
-        throw new Error("Method not implemented.");
+    async getOneValue(objectId: string | number, field: string, order?: Order) {
+        const filter = new Filter();
+        filter.addEqualValue(this.model.getPrimaryKey(), objectId);
+        const fieldQuery = new Field();
+        fieldQuery.addField(field);
+        return await this.getPrismaServiceTable().findFirst(new Query(fieldQuery, filter, order, new Limit(1)));
     }
-    getOneByFilter(filter: Filter, field?: string | number, order?: Order) {
-        throw new Error("Method not implemented.");
+
+    async getOneByFilter(filter: Filter, field?: string | number, order?: Order) {
+        const queryField = new Field();
+        queryField.addField(field);
+        return await this.getPrismaServiceTable().findFirst(new Query(queryField, filter, order, new Limit(1)));
     }
-    getOneValueByFilter(filter: Filter, field: string | number, order?: Order) {
-        throw new Error("Method not implemented.");
+    async getOneValueByFilter(filter: Filter, field: string | number, order?: Order) {
+        const queryField = new Field();
+        queryField.addField(field);
+        return await this.getPrismaServiceTable().findFirst(new Query(queryField, filter, order, new Limit(1)));
     }
     async getRows(fields?: Field, filter?: Filter, order?: Order, limit?: Limit) {
-        //return new Query(fields,filter,order,limit,this.model.getInnerJoins());
-        return await this.getPrismaServiceTable().findMany(new Query(fields,filter,order,limit,this.model.getInnerJoins()));
+        return await this.getPrismaServiceTable().findMany(new Query(fields, filter, order, limit, this.model.getInnerJoins()));
     }
-    getRowCount(filter?: Filter) {
-        throw new Error("Method not implemented.");
+    async getRowCount(filter?: Filter): Promise<number> {
+        return await this.getPrismaServiceTable().count(new Query(null, filter));
     }
     async insertRow(data: Object) {
         return await this.getPrismaServiceTable().create({ data: data });

@@ -9,7 +9,7 @@ export interface IRepository {
     getOneByFilter(filter: Filter, field?: string | number, order?: Order);
     getOneValueByFilter(filter: Filter, field: string | number, order?: Order);
     getRows(fields?: Field, filter?: Filter, order?: Order, limit?: Limit);
-    getRowCount(filter?: Filter);
+    getRowCount(filter?: Filter):Promise<number>;
     insertRow(data: Object);
     insertRows(datas: Object[]);
     updateRow(objectId: string | number, data: Object);

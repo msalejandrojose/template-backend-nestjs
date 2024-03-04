@@ -11,6 +11,7 @@ export class Query {
     take?: number;
     orderBy?: Object;
     include?: Object;
+    skip?:number;
 
     constructor(fields?: Field, filter?: Filter, order?: Order, limit?: Limit, include?:InnerJoin[]) {
         if (fields) {
@@ -24,6 +25,7 @@ export class Query {
         }
         if (limit) {
             this.take = limit.getLimit();
+            this.skip = limit.getSkip();
         }
         if(include){
             this.include=this.toPrismaInnerJoin(include);

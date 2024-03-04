@@ -36,15 +36,15 @@ export class Filter {
     addLessThan(column: string, value: string | number) {
         this.conditions.push(new Condition(column, value, ConditionOperator.LESS_THAN));
     }
-    
+
     addGreaterThan(column: string, value: string | number) {
         this.conditions.push(new Condition(column, value, ConditionOperator.GREATER_THAN));
     }
-    
+
     addLessThanOrEqual(column: string, value: string | number) {
         this.conditions.push(new Condition(column, value, ConditionOperator.LESS_THAN_OR_EQUAL));
     }
-    
+
     addGreaterThanOrEqual(column: string, value: string | number) {
         this.conditions.push(new Condition(column, value, ConditionOperator.GREATER_THAN_OR_EQUAL));
     }

@@ -43,14 +43,25 @@ export class Model<T> extends BaseModel<T>{
         return this.innerJoins;
     }
 
-    static async getOne<T>(objectId:string | number):Promise<T>{
+    static async getOne<T>(objectId:string | number):Promise<T>{
         if(typeof objectId == 'string'){
             objectId = parseInt(objectId);
         }
         return await new this().repository.getOne(objectId)??false;
     }
-
+    static async getOneValue(objectId: string | number, field: string, order?: Order){
+        return await new this().repository.getOneValue(objectId,field,order);
+    }
+    static async getOneByFilter(filter: Filter, field?: string | number, order?: Order){
+        return await new this().repository.getOneByFilter(filter,field,order);
+    }
+    static async getOneValueByFilter(filter: Filter, field: string | number, order?: Order){
+        return await new this().repository.getOneValueByFilter(filter,field,order);
+    }
     static async getRows(fields?: Field, filter?: Filter, order?: Order, limit?: Limit){
         return await new this().repository.getRows(fields,filter,order,limit)??false;
+    }
+    static async getRowCount(filter?: Filter):Promise<number>{
+        return new this().repository.getRowCount(filter).then((count:number)=>{return count});
     }
 }

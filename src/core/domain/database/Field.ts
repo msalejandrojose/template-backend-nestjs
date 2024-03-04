@@ -1,11 +1,11 @@
 export class Field {
-    protected fields: string[];
+    protected fields: Array<string | number>;
 
     constructor(fields?: string[]) {
         this.fields = fields??[];
     }
 
-    addField(field:string | string[]){
+    addField(field:string | number | string[]){
         if(Array.isArray(field)){
             this.fields.push(...field);
         }else{

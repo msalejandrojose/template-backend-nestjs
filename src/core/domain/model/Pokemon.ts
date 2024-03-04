@@ -7,7 +7,7 @@ export class Pokemon extends Model<Pokemon>{
         super('pokemon','id','p');
         const fields = new Field();
         fields.addField(['name']);
-        this.addInnerJoin('type',new Query(fields));
+        //this.addInnerJoin('type',new Query(fields));
     }
 }
 
