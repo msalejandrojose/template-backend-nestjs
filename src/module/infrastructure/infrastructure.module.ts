@@ -17,11 +17,8 @@ export class InfrastructureModule {
             ],
             providers: [
                 PrismaService,
-                //prismaDbRepository,
                 PrismaRepository,
                 Model,
-                //PokemonRepository,
-                //PokemonListUseCaseProvider
             ],
             controllers: [
                 TestController,
@@ -29,9 +26,6 @@ export class InfrastructureModule {
             ],
             exports: [
                 PrismaRepository,
-                //PRISMA_REPOSITORY,
-                //POKEMON_LIST_APPLICATION,
-                //POKEMON_REPOSITORY
             ],
         };
     }
