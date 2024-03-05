@@ -1,6 +1,6 @@
 import { DynamicModel } from "./DynamicModel";
 
-export class StaticModel<T> extends DynamicModel<T>{
+export class StaticModel extends DynamicModel{
     constructor(){
         super('id','s');
     }

@@ -9,11 +9,18 @@ import { Limit } from "src/core/domain/database/Limit";
 import { Order } from "src/core/domain/database/Order";
 import { Query } from "./dtos/Query";
 
-//@Injectable()
+@Injectable()
 export class PrismaRepository implements IRepository {
     protected prismaService: PrismaClient;
-    constructor(private readonly model: Model<Object>) {
-        this.prismaService = new PrismaService()
+    protected model: Model;
+    constructor(prismaService:PrismaService) { 
+        this.prismaService=prismaService;
+        //this.prismaService = new PrismaService()
+    }
+
+    addModel(model:Model){
+        //return "ADD MODEL";
+        this.model=model;
     }
 
     private getPrismaServiceTable() {

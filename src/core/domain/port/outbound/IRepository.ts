@@ -2,8 +2,10 @@ import { Field } from "../../database/Field";
 import { Filter } from "../../database/Filter";
 import { Limit } from "../../database/Limit";
 import { Order } from "../../database/Order";
+import { Model } from "../../model/Model";
 
 export interface IRepository {
+    addModel(model:Model);
     getOne(objectId: string | number);
     getOneValue(objectId: string | number, field: string, order?: Order);
     getOneByFilter(filter: Filter, field?: string | number, order?: Order);

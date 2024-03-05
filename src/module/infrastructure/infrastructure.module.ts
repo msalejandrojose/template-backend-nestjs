@@ -2,7 +2,6 @@ import { DynamicModule, Module } from "@nestjs/common";
 import { TestController } from "src/core/infrastructure/controller/test.controller";
 import { DomainModule } from "../domain/domain.module";
 import { PrismaService } from "src/core/infrastructure/database/prisma/PrismaService";
-import { PRISMA_REPOSITORY, prismaDbRepository } from "./InfrastructureFactory";
 import { PrismaRepository } from "src/core/infrastructure/adapter/database/PrismaRepository";
 import { Model } from "src/core/domain/model/Model";
 import { PokemonListController } from "src/core/infrastructure/controller/cp/pokemon/pokemonList.controller";
@@ -18,9 +17,11 @@ export class InfrastructureModule {
             ],
             providers: [
                 PrismaService,
-                prismaDbRepository,
+                //prismaDbRepository,
                 PrismaRepository,
                 Model,
+                //PokemonRepository,
+                //PokemonListUseCaseProvider
             ],
             controllers: [
                 TestController,
@@ -28,7 +29,10 @@ export class InfrastructureModule {
             ],
             exports: [
                 PrismaRepository,
-            ]
+                //PRISMA_REPOSITORY,
+                //POKEMON_LIST_APPLICATION,
+                //POKEMON_REPOSITORY
+            ],
         };
     }
 }

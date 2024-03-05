@@ -22,12 +22,13 @@ export class TestController {
 
         const filter = new Filter();
         filter.addEqualValue('name','pikachu');
+        return filter;
 
-        const countPokemon = await Pokemon.getRowCount();
-        const numPage = 40;
-        const numItems = 20;
-        const pages = countPokemon/numItems;
-        return Pokemon.getRows(null,null,null,new Limit(numItems,numPage*numItems));
+        //const countPokemon = await Pokemon.getRowCount();
+        //const numPage = 40;
+        //const numItems = 20;
+        //const pages = countPokemon/numItems;
+        //return Pokemon.getRows(null,null,null,new Limit(numItems,numPage*numItems));
 
         //const pokemon = await Pokemon.getRows(fields,filter,null,new Limit(10));
         //const pokemon = Pokemon.getOne(1);

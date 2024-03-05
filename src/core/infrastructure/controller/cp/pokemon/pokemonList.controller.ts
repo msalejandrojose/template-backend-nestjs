@@ -1,10 +1,14 @@
 import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ObjectListUseCase } from 'src/core/application/object.list.use-case';
 
 @ApiTags('PokemonList')
 @Controller('/pokemon')
 export class PokemonListController {
-    constructor() { }
+    constructor(
+        @Inject('POKEMON_LIST_APPLICATION')
+        private readonly pokemonListUseCase: ObjectListUseCase
+    ) { }
     // Método GET para obtener el listado de Pokémon con filtros y paginación
     @ApiOperation({ summary: 'Obtener el listado de Pokémon con filtros y paginación' })
     @ApiOkResponse({ description: 'Listado de Pokémon' })
@@ -12,6 +16,7 @@ export class PokemonListController {
     async getPokemonList(
         @Query('page', new ParseIntPipe({ optional: true })) page: number = 0,
     ) {
+        return this.pokemonListUseCase.getList();
         return { 'format': typeof page, 'page': page };
         return "ASD";//this.pokemonService.getPokemonList({ name, page, limit });
     }

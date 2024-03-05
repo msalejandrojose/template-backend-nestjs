@@ -3,7 +3,7 @@ import { BaseModel } from "./BaseModel";
 import { IRepository } from "../port/outbound/IRepository";
 
 @Injectable()
-export class DynamicModel<T> extends BaseModel<T>{
+export class DynamicModel extends BaseModel{
     protected primaryKey: string;
     protected alias: string;
     protected data: Object[];
