@@ -1,32 +1,20 @@
 import { DynamicModule, Module } from "@nestjs/common";
-import { TestController } from "src/core/infrastructure/controller/test.controller";
-import { DomainModule } from "../domain/domain.module";
-import { PrismaService } from "src/core/infrastructure/database/prisma/PrismaService";
-import { PrismaRepository } from "src/core/infrastructure/adapter/database/PrismaRepository";
-import { Model } from "src/core/domain/model/Model";
-import { PokemonListController } from "src/core/infrastructure/controller/cp/pokemon/pokemonList.controller";
+import {ApplicationModule} from "../application/application.module";
+import {UserModule} from "./user.module";
+import {AuthModule} from "./auth.module";
 
 @Module({})
 export class InfrastructureModule {
-    private prismaService: PrismaService;
     static register(): DynamicModule {
         return {
             module: InfrastructureModule,
             imports: [
-                DomainModule.register()
+                ApplicationModule.register(),
+                UserModule
             ],
-            providers: [
-                PrismaService,
-                PrismaRepository,
-                Model,
-            ],
-            controllers: [
-                TestController,
-                PokemonListController
-            ],
-            exports: [
-                PrismaRepository,
-            ],
+            providers: [],
+            controllers: [],
+            exports: [],
         };
     }
 }
